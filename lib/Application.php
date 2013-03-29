@@ -31,6 +31,10 @@ class Application {
         
     }
     
+    /**
+     * Note, the layout may invoke additional controllers.  Only their data will be
+     * rendered back in.  If you need 
+     */
      public function run() {
         $this->_Log = new Log( '/tmp' . DIRECTORY_SEPARATOR . 'tpt.log');
         $this->_Log->install();
@@ -49,6 +53,7 @@ class Application {
         
         $Layout->setData(array());
         echo $Layout->render($scriptFile);
+        
      }
      
      /**

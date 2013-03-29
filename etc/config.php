@@ -29,3 +29,5 @@ function tpt_autoload($namespacedClassName) {
 }
 
 spl_autoload_register('\com\twopitau\web\tpt_autoload');
+
+include_once PATH . 'etc' . DIRECTORY_SEPARATOR .'util.php';

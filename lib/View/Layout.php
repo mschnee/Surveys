@@ -13,7 +13,13 @@ class View_Layout extends View {
     protected $_controller = "";
     protected $_action = "";
     protected $_content = array();
-    private $_d = array();
+    private $_d = array(
+        'metaForLayout'=>'',
+        'jsForLayout'=>'',
+        'cssForLayout'=>'',
+        'title'=>'',
+        'jsBlock'=>''
+    );
     
     public function __construct($controller,$action,$controllerData) {
         $this->_controller = $controller;
