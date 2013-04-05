@@ -1,0 +1,18 @@
+BONUS Question 22
+What is the most effective way to sort 1 million 32-bit integers? Why? 
+
+I did some research to try to find a "best" method with mixed results:
+
+Han and Thorup outlined an algorithm in 2002 that is effectively 
+O(n *sqrt(log*log*n) over time an in linear space (O(1)). 
+http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=1181890
+
+However, the math is currently beyond my understanding.  One million 32-bit 
+integers is 4MB, which is significant enough to want to prefer a a linear-space 
+algorithm.  If the minimum and maximum values are known, a Histogram Sort may 
+be most effective.  Because 32-bit integers have known possible maximums and
+minimums, Radix Sorts might be preferable.
+
+Furthermore, the process can be parallell-ized to be run on a GPU using OpenCL. 
+I’m aware of Radix Sort code on github that essentially does this: 
+http://github.com/mbien/jocl-demos/tree/master/src/com/mbien/opencl/demos/radixsort/.

@@ -1,0 +1,20 @@
+Question 10. In the class "DBModel", explain possible methods to secure the 
+database credentials. 
+
+One of the most common methods of securing database credentials is to keep them 
+in a separate file outside of the html root, that can only be read by the 
+process running PHP.  For example, on a system using nginx as the web server and
+PHP FastCGI Process Manager (php-fpm) for PHP, the nginx doesn’t have permission
+to read the file, whereas the php-fpm pool that has access to the database to 
+that site can read it.  PHP information reporting should also be turned off, 
+because phpinfo() is capable of returning any configuration values being used 
+to access MySQL.
+
+This sometimes isn’t an option on some hosts that only give you access to a 
+public html folder.  If you're forced to use one of these, the solution there is
+to make sure the configuration file cannot be accessed by the web process.  
+.htaccess files for apache do this, and extended nginx location configuration 
+can handle this for nginx server pools.
+
+Generally, database credentials should not be a part of the web application- 
+they should be secured separately by the system adninistrators.

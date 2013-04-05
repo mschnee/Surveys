@@ -1,0 +1,24 @@
+Question 12 
+Which initiatives can be added to ensure secure interaction between the database
+and the web application? 
+
+Start by following the MySQL Security guideleines: 
+http://dev.mysql.com/doc/refman/5.0/en/security.html
+
+Specifically, never give root access to anybody, and make sure that the web 
+application has limited permissions to access the database and tables- no more 
+privileges than necessary.  
+
+Make sure MySQL is using the NEW password method for storing account hashes, 
+and that the client accessing it supports it- use php-mysqli/php-mysqlnd and 
+NOT the old php-mysql driver.  Most generic LAMP installations use the 
+OLD_PASSWORD method.  If your web service and MySQL service run on the same 
+local server, make sure to connect over a unix socket and don’t expose MySQL 
+to the network interfaces.
+
+Next, the web application should talk to the database using an appropriate 
+abstraction layer that has safety and sanitization built in (PDO, DBIterator, 
+etc).  
+
+Finally, don't write code that handles user input without cleaning, checking, 
+and sanitizing it for safe insertion.

@@ -1,0 +1,46 @@
+Question 17
+Explain the differences between SQL Injection, CSRF, and XSS, and what dangers 
+each pose to an online application. 
+
+==== SQL Injection ====
+SQL Injection occurs when an application accepts input and passes it on to a 
+database directly, either with no sanitization or improper sanitization.  This
+can allow an attacker to execute arbitrary statements.  If a database itself
+is properly secured on a system, the application becomes the sole vector for
+attack.
+
+SQL Injections are still among the most common vulnerabilities, because they
+occur from poorly designed code, and from programmer error.  
+
+==== Cross Site Request Forgery ====
+CSRF occurs when a user that is securely connected to one website ends up
+making an unintended request to that website without knowing.
+Suppose I'm logged into my bank's website, and I visit a forum where a user
+has the following image tag in his signature:
+<img src="https://mybankwebsite.com//API/transferMoney?toAccount=Attacker&amount=1000.00&confirm=yes">
+
+This causes my browser to make the request to mybankwebsite.com.  My browser is
+securely connected to the bank, so the bank things I want to give $1000 to 
+"Attacker", even though I had nothing to do with it.
+
+These attacks become more complicated with javascript, because code can be
+loaded into my browser that might emulate any captcha or confirmation dialogs.
+CSRF occurs mostly when another website does not properly check for XSS before
+outputting its HTML.
+
+==== Cross Site Scripting ====
+XSS occurs primarly when a website doesn't not validate or filter the code it's
+outputting to the browser.  This means that raw plaintext inputted by a user
+could contain a <script> tag containing malicious code, such as 
+$(window).bind("keydown"), which essentially is a keystroke logger.
+
+These get tricky when presented as trustable links- right now, lots of people 
+are probably getting emails from "Blizzard" concerning beta invites to the new
+version of World of Warcraft.  These links lead to an actual blizzard website, 
+but the link itself contained javascript which installs a keylogger in the 
+browser for that page.  This is a case where the website itself might be
+securely presenting data, but the user didn't apply enough security to reading
+their emails.
+
+Example: a tinyurl that redirects to html that loads javascript in an iframe and
+then loads the actual trusted site, and installs the keylogging javascript.

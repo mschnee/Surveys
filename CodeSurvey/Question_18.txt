@@ -1,0 +1,41 @@
+Question 18
+What is the difference between encoding, encrypting and hashing? 
+
+==== Encoding ====
+Encoding is the process of taking some data and translating it for a useful
+purpose.  Arrays in PHP, python, and even in C web applications can be encoded
+to JSON (Javascript Object Notation) for easy and somewhat safe transmission.
+Data can also be URL-encoded- which is how most GET requests are sent from
+a browser.
+
+Encoding is both a means of ensuring compatibility and compression.  Raw data,
+video, and audio files take up a large amount of space.  Encoding these files
+translates them into significantly smaller forms that are still acceptible for
+use: MPEG Layer-3 Variable Bit Rate encoding creates small files while retaining
+high quality, as do FLAC and AAC (which claim to be lossless).
+
+Encoding, in terms of documents, also tell a document reader what character set
+and language that document uses.  UTF-7 and UTF-16 save data differently from
+Latin-1.  Also, compression is a form of encoding for text: ZIP, RAR, and BZ2 
+are all common formats used to compress and encode data for transmission.
+
+==== Encryption ====
+Encryption is the process of encoding, compressing, or translating data to
+secure its content.  There are many different methods to encrypt data for many
+different purposes.  Data can be encrypted so that it can be communicated
+securely over open channels, and it can also be encrypted for storage so that
+only some people have access to it.  Unlike encoding, where data is converted
+to become more useful, encryption converts data to be less useful.  
+Specifically, only useful for the people intended to make use of it.
+
+
+==== Hashing ====
+A hash of some data is essentially a checksum, or interpretation of the data's
+size and content.  Hashes are used for verification and lookup concerning data,
+but don't contain any data themselves.  Passwords are often stored by recording
+and comparing their hashes.  Hashes, such as checksums, can be used to verify
+that data has been transmitted intact.  
+
+Hashes are also used for looking up data.  Hash Tables and Hashes are common
+programming data types, using a Key->value lookup, the hash being the key, in
+the lookup table, and being a valid hash of the data it refers to.

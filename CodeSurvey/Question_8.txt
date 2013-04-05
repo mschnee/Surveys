@@ -1,0 +1,23 @@
+Question 8
+Identify and explain the different security risks associated with displaying the 
+data as called above. 
+
+$query = "SELECT * FROM new_table;";
+$info = DBModel::query($query);
+while ($row = mysql_fetch_assoc($info)) {
+   echo $row['id'] . ": ";
+   echo $row['name'] . ",  ";
+   echo $row['city'] . " (";
+   echo $row['zip'] . ")<br>";
+} 
+
+This code echos content directly to the web client without and validation, and 
+is an infection vector for both Cross Site Scripting (XSS) attacks and Cross 
+Site Request Forgery attacks.
+
+If $row['name'] contains the following code:
+"Matthew <script>$(window).bind(\"keypress\",someAjaxUploadFunction);</script>",
+rendering it verbatim will install an in-session keylogger to anybody that loads 
+that page.  This is the XSS vulnerability, according to Symantic was responsible
+for 80% of all documented security vulnerabilities as of 2007:
+http://eval.symantec.com/mktginfo/enterprise/white_papers/b-whitepaper_exec_summary_internet_security_threat_report_xiii_04-2008.en-us.pdf

@@ -1,0 +1,18 @@
+Question 14
+Using the class "DBModel", list all errors that are present in the class.
+
+* mysql_query (line 17) is missing the second parameter, the connection 
+  identifier to the database.
+* DBModel::query() has a typo in the return variable name.
+* DBModel::read() is private and isn’t used.
+* DBModel::read() has '$this->table' which will be read literally, instead of 
+  "{$this->table}" or by concatenating $this->table to the string.  
+  Also, the member $this->table is empty and never set, which will cause MySQL
+  to error.
+* DBModel::read() doesn’t return any data when successful.  The errors should 
+  be exceptions.
+
+* __construct() doesn’t test if the connection was successfully established - 
+  will throw an unhandled exception in mysql_select_db;
+* This is a PHP 4 class, so I'm probably missing a lot.  'php -l' doesn't like
+  it at all.

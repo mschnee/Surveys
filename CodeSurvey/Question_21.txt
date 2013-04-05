@@ -1,0 +1,10 @@
+BONUS Questions 19
+How would you exchange sensitive data between two nodes on the Internet without 
+using VPN, and passing the data via HTTP requests? 
+
+Public key encryption.  I've linked a youtube video that explains the process
+far better than I can:
+http://www.youtube.com/watch?v=3QnD2c4Xovk
+
+Mathematically, only the two nodes with the private keys are able to encrypt
+and decrypt the secured information.

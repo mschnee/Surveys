@@ -1,0 +1,16 @@
+Question 13
+Using the class "DBModel", assuming the "query function" is corrected, how can 
+the "query" function be used to hijack the database? 
+
+function DBModel::query($sql){
+     $returned_data = mysql_query($sql); 
+     return $retruned_data; 
+}
+
+The query function writes a completely unfiltered string that may not even be
+SQL.  Thankfully, mysql_query() doesn't allow multiple query statements, which
+prevents an attacker from inserting a string like:
+1;DROP TABLE users;
+
+However, it could still allow a malicious user to modify the current query, 
+allowing for blind SQL injection attacks.

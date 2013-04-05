@@ -1,0 +1,26 @@
+Question 15
+List the different ways to secure an application that contains a file upload 
+form on the site. Explain why this would secure the form.
+
+First, the form needs to be constructed properly, with the attribute
+enctype="multipart/form-data" in the form tag, and a hidden input element with 
+the name "MAX_FILE_SIZE".
+
+Second, PHP's configuration should designate a special directory for temporary
+file uploads.  This directory should be outside of the web root and only
+accessible to the PHP process and not the web service.  The final location, if
+the file is an image to be rendered in the web page, should be readable by 
+the server process.  If not, it shouldn't be.
+
+The code that handles the file upload should perform some basic checks: ensure
+the faile size is correct and that the provided mime-type matches what the
+server expects.
+
+Finally, before moving that file to its permanent location for use, a background
+process can be spawned to check the file- virus scanning, thorough mime-type 
+validation, any anything else necessary for the file or document.
+
+File Upload Forms can be dangerous if not treated properly.  It's a way for a 
+user to put data onto your service that other users may have access to.  Like
+all other forms of user input, it needs to be checked both when going in and 
+when coming back out.

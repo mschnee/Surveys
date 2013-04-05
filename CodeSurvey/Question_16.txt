@@ -1,0 +1,29 @@
+Question 16
+Explain how a session could be hijacked, and how to secure an application 
+against this. 
+
+Session hijacking happens when a third party can read a session id from a cookie
+and then take that sessionid to fake being the correct client.  Security 
+articles concerning this from the Open Web Application Security Project:
+https://www.owasp.org/index.php/Top_10_2010-A3-Broken_Authentication_and_Session_Management
+https://www.owasp.org/index.php/Top_10_2010-A9-Insufficient_Transport_Layer_Protection
+
+The first step is to prevent any session fixation.  Generally, web services will
+reuse a sessionID when a session is restarted for a client.  Instead, PHP should
+be configured to securely to always give new IDs when a new session is started.
+
+From StackOverflow:
+ini_set('session.cookie_secure',1);
+ini_set('session.cookie_httponly',1);
+ini_set('session.use_only_cookies',1);
+session_start();
+
+Translated, this means that when you log in to a website, you should be given a 
+new SessionID.  On the back-end, session-IP address verification can help a 
+little to prevent basic session-spoofing, but this is often more a hindrance to
+the end user than to a dedicated hacker.  
+
+Requiring SSL connections over https, and implementing Strict Transport 
+Security, are other ways to secure and encrypt the application session.  SSL
+can be easily defeated by man-in-the-middle attacks such as SSLStrip, but using
+SSL is more secure than not using SSL.

@@ -1,0 +1,25 @@
+Question 9
+Identify and explain the possible solutions to the security risks identified in 
+Question 8. 
+
+First, data that is going to go into a database needs to be parsed and 
+sanitized first.  There aren't many situations where raw html or JavaScript
+should be input from a user.
+
+Second, database output shouldn't be output directly to a browser without being
+handled through some kinf of View or processing mechanism.  Views and View 
+Controllers should hanv an understanding of what kind of data they are supposed
+to output and format accordingly.  In the abode example, a regular expression
+to strip out HTML tags and javascript, coupled with htmlspecialchars() could
+suffice.
+
+There are a number of conditions that need to be checked for sanitization and
+purification: full blobs of HTML, user input that needs to be displayed 
+verbatim, attributes that are rendered in PHP, and javascript that is rendered
+in PHP.  Each of these has a slightly different preferred purification 
+mechanism.  For full text, HTMLPurifier seems to be the most popular solution.
+For user input, there is htmlspecialchars(strip_tags()).
+
+Also, for IE6 and as general practice, the charset of the document should be
+explicitly set to prevent UTF-7 exploits (malformed character data that IE6
+detetcs wrong becomes a vector for attack).

@@ -1,0 +1,46 @@
+Question 7Identify and explain the possible solutions to the security risks 
+identified in Question 6. 
+
+First, data to be inserted should be processed.  Using matching or regular 
+expressions, each of those keys need to be tested for validity- names shouldn’t 
+have semicolons, though they CAN include single quotes or double quotes.
+
+Second, PHP’s MySQL driver provides mysql_real_escape_string(), which properly 
+escapes strings for use with querying.  According to the PHP documentation, 
+This function must always (with few exceptions) be used to make data safe before 
+sending a query to MySQL.
+
+Third, a proper Database Abstraction Layer would have the means for 
+constructing these queries without the programmer writing it by hand.  I 
+currently use a DBA Layer that has a Python-style replacement template syntax:
+
+$result = $db->execute(“
+    SELECT usersID,password,pwNonce FROM users 
+    WHERE username=%(username)s OR sessionid=%(sessionID)d
+    ”,$_POST)->iterator();
+$result = $db->select(
+    “users”, // table
+    array(“usersID,password,pwNonce”), // columns
+    array(“username”,”sessionid”), // where predicates
+    $_POST
+)->getResultArray();
+
+These examples show that user input is processed by the DBA Layer members and 
+are not made a direct part of the queries.  PHP also has it’s own DBA layer 
+called PDO (PHP Data Objects).  PDO allows for the preparation of queries and 
+the binding of PHP variables to those queries.
+
+Finally, the very handling of user input should be done in a Validation 
+Controller that is abstracted away from from the controller that commits 
+changes.  Many Desktop GUI libraries have Validator classes and subclasses that
+can handle input from different kinds of widgets.  In PHP (or any other web
+generation language), objects for input elements and forms can be set with
+validators.
+
+For example, a TextInput meant for zip codes can be given a validator that
+restricts the input to a legal zip-code format.  An input for dates and times
+would be given a validator that checks to make sure the user input is a proper
+time.  These validators can contain or reference javascript, to add another
+layer of input validation on the client-end.  Still, javascript alone is no
+substitution for parsing and sanitizing at every step before it gets to the 
+database.

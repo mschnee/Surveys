@@ -1,0 +1,18 @@
+Question 7
+Identify and explain the different security risks with the above statement. 
+
+$query = "INSERT INTO new_table (name, city, zip) VALUES
+    ('" . $_POST['name'] . "' , '" . 
+    $_POST['city'] . "' , '" . 
+    $_POST['zip'] . "' , ');";
+    $info = DBModel::query($query); 
+
+This code is a prime target for SQL Injection.  The POSTDATA received is neither 
+checked nor verified, and is passed to the database without being properly 
+escaped.  
+
+An attacker could simply type in "mynameis;GRANT ALL PRIVILEGES ON *.* TO 
+someunauthenticatedUser;"; in nay of these fields.
+
+Second, input that hasn't been processed is also an infection vector for 
+cross-site-scripting and Cross-Site Request-Forgery attacks.

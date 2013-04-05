@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $title ?></title>
+        <?php echo $metaForLayout ?>
+        <?php echo $cssForLayout ?>
+    </head>
+    <body>
+        <div>Layout</div>
+        <div><?php echo $this->content() ?></div>
+        <?php echo $jsForLayout ?>
+        <?php if(isset($jsBlock)):?>
+            <script type='text/javascript'>
+            <?php echo $jsBlock ?>
+            </script>
+        <?php endif ?>
+    </body>
+        
+</html>
